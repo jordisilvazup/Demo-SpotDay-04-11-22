@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * Tip: Here we can use Spring Data JPA to make our lives easier.
  */
-@Repository
+@Repository("userRepositoryS3")
 public class UserRepository {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserRepository.class);

@@ -1,5 +1,6 @@
 package stack.edu.Demo.samples.redis.payments;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import java.util.UUID;
 
 @Service
 public class PaymentMethodsUserService {
+    @Qualifier("userRepositoryRedis")
     private final UserRepository userRepository;
 
     public PaymentMethodsUserService(UserRepository userRepository) {

@@ -78,50 +78,8 @@ management:
             probes:
                 enabled: true
                 add-additional-paths: true
-cloud:
-    aws:
-        
-        s3:
-            bucket-name: my-bucket
-            endpoint: http://127.0.0.1:4566
-        stack:
-            auto: false
-            enabled: false
-        credentials:
-            access-key: localstackAccessKeyId
-            secret-key: localstackSecretAccessKey
-        region:
-            static: eu-west-1
 
-logging.level.com.amazonaws.services.s3: debug
-logging.level.com.amazonaws.util.EC2MetadataUtils: error
-##
-# Spring Cloud AWS
-# https://docs.awspring.io/spring-cloud-aws/docs/current/reference/html/appendix.html
-##
-cloud:
-    aws:
-        stack:
-            auto: false
-            enabled: false
-        credentials:
-            access-key: localstackAccessKeyId
-            secret-key: localstackSecretAccessKey
-        region:
-            static: sa-east-1
-        sns:
-            endpoint: http://localhost:4566
-            region: sa-east-1
-            verification: true
 
-logging:
-    level:
-        io.awspring.cloud.messaging.core: info
-        io.awspring.cloud.messaging.listener: info
-        com.amazonaws.services.sns: debug
-
-# Samples configuration
-samples.aws.sns.publisher-topic: paymentConfirmedTopic
 ##
 # Spring Cloud AWS
 # https://docs.awspring.io/spring-cloud-aws/docs/current/reference/html/appendix.html
@@ -146,14 +104,25 @@ cloud:
                 visibility-timeout: 30  # 30s
                 wait-timeout: 20        # 20s
                 back-off-time: 10000    # 10s
+        sns:
+            endpoint: http://localhost:4566
+            region: sa-east-1
+            verification: true
+        s3:
+            bucket-name: my-bucket
+            endpoint: http://127.0.0.1:4566
 
 logging:
     level:
         io.awspring.cloud.messaging.core: info
         io.awspring.cloud.messaging.listener: info
         com.amazonaws.services.sqs: debug
+        com.amazonaws.services.sns: debug
+        org.springframework.cache: TRACE
+        com.amazonaws.services.s3: debug
+        com.amazonaws.util.EC2MetadataUtils: error
 
 # Samples configuration
 samples.aws.sqs.producer-queue: newProductsQueue
 samples.aws.sqs.consumer-queue: customersCreatedQueue
-logging.level.org.springframework.cache: TRACE
+samples.aws.sns.publisher-topic: paymentConfirmedTopic

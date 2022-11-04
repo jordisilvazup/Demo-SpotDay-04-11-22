@@ -20,16 +20,10 @@ cloud:
             verification: false
         sqs:
             endpoint: http://localhost:4566
+            listener:
+                auto-startup: false
+                queue-stop-timeout: 500
 
 logging:
     level:
         com.amazonaws.services.sqs: debug
-##
-# Spring Cloud AWS
-##
-cloud:
-    aws:
-        sqs:
-            listener:
-                auto-startup: false
-                queue-stop-timeout: 500

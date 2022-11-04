@@ -1,5 +1,6 @@
 package stack.edu.Demo.samples.aws.s3.user;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import static org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE;
 
 @RestController
 public class CreateImageProfileUserController {
+    @Qualifier("userRepositoryS3")
     private final UserRepository repository;
     private final S3PhotoStorage s3PhotoStorage;
 
