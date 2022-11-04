@@ -20,6 +20,17 @@ server:
 ##
 spring:
     ##
+    # Spring Data DynamoDB
+    # https://github.com/derjust/spring-data-dynamodb/wiki/Autocreate-Tables
+    ##
+    data:
+        dynamodb:
+            entity2ddl:
+                auto: create-drop
+                gsiProjectionType: ALL
+                readCapacity: 10
+                writeCapacity: 1
+    ##
     # DataSource and JPA/Hibernate (PostgreSQL)
     ##
     datasource:
@@ -148,6 +159,25 @@ cloud:
             bucket-name: my-bucket
             endpoint: http://127.0.0.1:4566
 
+
+##
+# AWS DynamoDB Configuration
+##
+amazon:
+    aws:
+        dynamodb:
+            endpoint: http://localhost:4566
+            region: sa-east-1
+            accessKey: localstackAccessKeyId
+            secretKey: localstackSecretAccessKey
+
+
+# Samples configuration
+samples.aws.sqs.producer-queue: newProductsQueue
+samples.aws.sqs.consumer-queue: customersCreatedQueue
+samples.aws.sns.publisher-topic: paymentConfirmedTopic
+
+
 logging:
     level:
         io.awspring.cloud.messaging.core: info
@@ -157,8 +187,6 @@ logging:
         org.springframework.cache: TRACE
         com.amazonaws.services.s3: debug
         com.amazonaws.util.EC2MetadataUtils: error
+        org.socialsignin.spring.data.dynamodb: debug
+        org.apache.http.wire: debug
 
-# Samples configuration
-samples.aws.sqs.producer-queue: newProductsQueue
-samples.aws.sqs.consumer-queue: customersCreatedQueue
-samples.aws.sns.publisher-topic: paymentConfirmedTopic

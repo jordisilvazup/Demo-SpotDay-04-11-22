@@ -46,6 +46,13 @@ applied_templates:
     path_code_directory: src.main.java.stack.edu.Demo
     path_test_code_directory: src.test.java.stack.edu.Demo
   template_data_path: java-springboot-restapi-stack/java-spring-data-jpa-plugin
+- inputs:
+    application_class_source_file_path: src/main/java/stack/edu/Demo/SpotdaydemoApplication.java
+    application_package: stack.edu.Demo
+    application_package_folder: stack/edu/Demo
+    full_path_main_java_folder: src/main/java/stack/edu/Demo
+    full_path_test_java_folder: src/test/java/stack/edu/Demo
+  template_data_path: java-springboot-restapi-stack/java-spring-aws-dynamodb-plugin
 global_computed_inputs: {}
 global_inputs: {}
 stack: java-springboot-restapi-stack
