@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 services:
   localstack:
     container_name: localstack
@@ -90,6 +90,20 @@ services:
     - 19000:9000
     environment:
       KAFKA_BROKERCONNECT: kafka1:29092,kafka2:29093,kafka3:29094
+  postgres:
+    image: postgres:14.5
+    restart: unless-stopped
+    ports:
+    - 5432:5432
+    environment:
+      POSTGRES_DB: ${POSTGRES_USER:-dev_db}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+    volumes:
+    - postgres-data:/var/lib/postgresql/data/
 networks:
   broker-kafka:
     driver: bridge
+volumes:
+  postgres-data:
+    driver: local

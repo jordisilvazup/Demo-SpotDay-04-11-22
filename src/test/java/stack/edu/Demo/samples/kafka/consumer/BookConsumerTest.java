@@ -3,6 +3,7 @@ package stack.edu.Demo.samples.kafka.consumer;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -32,6 +33,7 @@ class BookConsumerTest {
     @Autowired
     private BookConsumer consumer;
     @Autowired
+    @Qualifier("bookRepositoryKafka")
     private BookRepository repository;
     @Value("${spring.kafka.consumer.topic}")
     private String topic;

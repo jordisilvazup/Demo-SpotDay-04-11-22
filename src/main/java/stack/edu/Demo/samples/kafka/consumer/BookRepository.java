@@ -14,7 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * Tip: Here we can use Spring Data JPA to make our lives easier.
  */
-@Repository
+@Repository("bookRepositoryKafka")
 @Validated
 public class BookRepository {
     private static final Logger LOGGER = LoggerFactory.getLogger(BookRepository.class);
