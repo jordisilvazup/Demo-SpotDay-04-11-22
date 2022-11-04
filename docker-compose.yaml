@@ -1,0 +1,95 @@
+version: '3'
+services:
+  localstack:
+    container_name: localstack
+    image: localstack/localstack
+    ports:
+    - 127.0.0.1:4566:4566
+    - 127.0.0.1:4510-4559:4510-4559
+    - 127.0.0.1:53:53
+    - 127.0.0.1:53:53/udp
+    - 127.0.0.1:443:443
+    environment:
+    - SERVICES=s3
+    - DEBUG=1
+    - DEFAULT_REGION=eu-west-1
+    - AWS_DEFAULT_REGION=eu-west-1
+    - AWS_ACCESS_KEY_ID=localstackAccessKeyId
+    - AWS_SECRET_ACCESS_KEY=localstackSecretAccessKey
+    - USE_LIGHT_IMAGE=1
+    - DATA_DIR=/tmp/localstack/data
+    - PORT_WEB_UI=8080
+    - DOCKER_HOST=unix:///var/run/docker.sock
+    volumes:
+    - ./.localstack:/tmp/localstack
+    - /var/run/docker.sock:/var/run/docker.sock
+  redis:
+    image: redis
+    command: redis-server --requirepass password
+    ports:
+    - 6379:6379
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    networks:
+    - broker-kafka
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+  kafka1:
+    image: confluentinc/cp-kafka:latest
+    networks:
+    - broker-kafka
+    depends_on:
+    - zookeeper
+    ports:
+    - 9092:9092
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka1:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+  kafka2:
+    image: confluentinc/cp-kafka:latest
+    networks:
+    - broker-kafka
+    depends_on:
+    - zookeeper
+    ports:
+    - 9093:9093
+    environment:
+      KAFKA_BROKER_ID: 2
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka2:29093,PLAINTEXT_HOST://localhost:9093
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+  kafka3:
+    image: confluentinc/cp-kafka:latest
+    networks:
+    - broker-kafka
+    depends_on:
+    - zookeeper
+    ports:
+    - 9094:9094
+    environment:
+      KAFKA_BROKER_ID: 3
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka3:29094,PLAINTEXT_HOST://localhost:9094
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+  kafdrop:
+    image: obsidiandynamics/kafdrop:latest
+    networks:
+    - broker-kafka
+    depends_on:
+    - kafka1
+    ports:
+    - 19000:9000
+    environment:
+      KAFKA_BROKERCONNECT: kafka1:29092,kafka2:29093,kafka3:29094
+networks:
+  broker-kafka:
+    driver: bridge

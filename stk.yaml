@@ -1,0 +1,46 @@
+applied_templates:
+- inputs:
+    project_artifact_id: Demo
+    project_description: Simple REST API application with Java and Spring Boot
+    project_group_id: stack.edu
+    project_name: SpotDayDemo
+    project_springboot_version: 2.7.2
+    project_version: 0.0.1-SNAPSHOT
+  template_data_path: java-springboot-restapi-stack/default-template
+- inputs:
+    application_class_full_path: src/main/java/stack/edu/Demo/SpotdaydemoApplication.java
+    application_path_default: src.main.java.stack.edu.Demo.SpotdaydemoApplication
+    directory_path: src.main.java.stack.edu.Demo
+    directory_path_code: stack.edu.Demo
+    directory_test_path: src.test.java.stack.edu.Demo
+  template_data_path: java-springboot-restapi-stack/java-spring-aws-s3-plugin
+- inputs:
+    application_package: stack.edu.Demo
+    application_package_folder: stack/edu/Demo
+    main_code_directory: src.main.java.stack.edu.Demo
+    test_code_directory: src.test.java.stack.edu.Demo
+  template_data_path: java-springboot-restapi-stack/java-spring-aws-sns-plugin
+- inputs:
+    application_package: stack.edu.Demo
+    application_package_folder: stack/edu/Demo
+    main_code_directory: src.main.java.stack.edu.Demo
+    test_code_directory: src.test.java.stack.edu.Demo
+  template_data_path: java-springboot-restapi-stack/java-spring-aws-sqs-plugin
+- inputs:
+    application_class_full_path: src/main/java/stack/edu/Demo/SpotdaydemoApplication.java
+    application_path_default: src.main.java.stack.edu.Demo.SpotdaydemoApplication
+    directory_path: src.main.java.stack.edu.Demo
+    directory_path_code: stack.edu.Demo
+    directory_test_path: src.test.java.stack.edu.Demo
+  template_data_path: java-springboot-restapi-stack/java-spring-cache-redis-plugin
+- inputs:
+    application_class_full_path: src/main/java/stack/edu/Demo/SpotdaydemoApplication.java
+    application_path_default: src.main.java.stack.edu.Demo.SpotdaydemoApplication
+    directory_path: src.main.java.stack.edu.Demo
+    directory_path_code: stack.edu.Demo
+    directory_test_path: src.test.java.stack.edu.Demo
+  template_data_path: java-springboot-restapi-stack/java-spring-kafka-plugin
+global_computed_inputs: {}
+global_inputs: {}
+stack: java-springboot-restapi-stack
+stack_type: app
